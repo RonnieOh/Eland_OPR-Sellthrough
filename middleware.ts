@@ -2,12 +2,20 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  // env 미설정 시 설정 안내 페이지로만 허용
+  if (!supabaseUrl || !supabaseKey || supabaseUrl.startsWith('your-')) {
+    if (!request.nextUrl.pathname.startsWith('/setup')) {
+      return NextResponse.redirect(new URL('/setup', request.url))
+    }
+    return NextResponse.next()
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
       cookies: {
         getAll() { return request.cookies.getAll() },
         setAll(cookiesToSet) {

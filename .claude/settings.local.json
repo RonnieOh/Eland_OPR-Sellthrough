@@ -9,7 +9,11 @@
       "Bash(cd /tmp)",
       "Bash(npx create-next-app@14 eland-opr --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --yes)",
       "Bash(npm install *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git credential-manager *)",
+      "Bash(git config *)"
     ]
   }
 }
