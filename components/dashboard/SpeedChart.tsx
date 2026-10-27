@@ -46,7 +46,7 @@ export default function SpeedChart({ brandSummaries, metric }: Props) {
             contentStyle={{ backgroundColor: '#1A1D2E', border: '1px solid #2D3147', borderRadius: '8px' }}
             labelStyle={{ color: '#F1F5F9' }}
             itemStyle={{ color: '#94A3B8' }}
-            formatter={(v: number) => [`${v.toLocaleString()} ${unit}/일`, '일 판매속도']}
+            formatter={(v) => [`${Number(v).toLocaleString()} ${unit}/일`, '일 판매속도']}
           />
           <Bar dataKey="speed" radius={[0, 4, 4, 0]}>
             {data.map((d, i) => (

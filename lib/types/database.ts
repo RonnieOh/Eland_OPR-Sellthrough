@@ -7,27 +7,35 @@ export interface Database {
         Row: { user_id: string; role: UserRole; created_at: string }
         Insert: { user_id: string; role?: UserRole }
         Update: { role?: UserRole }
+        Relationships: []
       }
       seasons: {
         Row: Season
         Insert: Omit<Season, 'id' | 'created_at'>
         Update: Partial<Omit<Season, 'id' | 'created_at'>>
+        Relationships: []
       }
       uploads: {
         Row: Upload
         Insert: Omit<Upload, 'id' | 'created_at'>
         Update: Partial<Omit<Upload, 'id' | 'created_at'>>
+        Relationships: []
       }
       items: {
         Row: Item
         Insert: Omit<Item, 'id' | 'created_at'>
         Update: Partial<Omit<Item, 'id' | 'created_at'>>
+        Relationships: []
       }
     }
+    Views: Record<never, never>
+    Functions: Record<never, never>
+    Enums: Record<never, never>
+    CompositeTypes: Record<never, never>
   }
 }
 
-export interface Season {
+export type Season = {
   id: string
   season_name: string
   start_date: string | null
@@ -38,7 +46,7 @@ export interface Season {
   created_at: string
 }
 
-export interface Upload {
+export type Upload = {
   id: string
   user_id: string | null
   filename: string
@@ -49,7 +57,7 @@ export interface Upload {
   created_at: string
 }
 
-export interface Item {
+export type Item = {
   id: string
   upload_id: string
   brand_name: string

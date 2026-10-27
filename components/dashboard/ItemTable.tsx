@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import type { Item, Season, Metric } from '@/lib/types/database'
-import { fmtPct, fmtCurrency, fmtNumber, fmt, rateColor, rateBg } from '@/lib/utils'
+import { fmtPct, fmtCurrency, fmtNumber, rateColor, rateBg } from '@/lib/utils'
 
 interface Props {
   items: Item[]
@@ -12,7 +12,7 @@ interface Props {
   activeSeason: Season | null
 }
 
-export default function ItemTable({ items, metric, brandName, activeSeason }: Props) {
+export default function ItemTable({ items, metric, brandName }: Props) {
   const parentRef = useRef<HTMLDivElement>(null)
 
   const rowVirtualizer = useVirtualizer({
@@ -22,7 +22,6 @@ export default function ItemTable({ items, metric, brandName, activeSeason }: Pr
     overscan: 20,
   })
 
-  const targetRate = metric === 'amount' ? activeSeason?.target_rate_amount : activeSeason?.target_rate_qty
 
   return (
     <div className="rounded-xl overflow-hidden" style={{ border: '1px solid #2D3147' }}>

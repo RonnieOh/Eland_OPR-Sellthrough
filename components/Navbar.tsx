@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { BarChart3, Upload, Settings, LogOut } from 'lucide-react'
+import { BarChart3, LogOut } from 'lucide-react'
 
 interface NavbarProps {
   userEmail: string

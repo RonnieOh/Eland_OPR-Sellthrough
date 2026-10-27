@@ -30,7 +30,7 @@ export default function ColumnMapper({ headers, mapping, onChange }: Props) {
         <p className="text-sm font-semibold text-white">컬럼 매핑</p>
         <p className="text-xs mt-0.5" style={{ color: '#94A3B8' }}>파일의 컬럼을 각 지표에 매핑해주세요</p>
       </div>
-      <div className="divide-y" style={{ divideColor: '#2D3147' }}>
+      <div className="divide-y divide-[#2D3147]">
         {FIELDS.map(field => (
           <div key={field.key} className="flex items-center px-4 py-3 gap-4" style={{ backgroundColor: '#161926' }}>
             <div className="w-32 shrink-0">

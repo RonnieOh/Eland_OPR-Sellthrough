@@ -129,7 +129,7 @@ export default function UploadClient({ seasons }: Props) {
         reference_date: row[m.reference_date] ?? refDate,
       })).filter(r => r.brand_name && r.item_name)
 
-      const calculatedItems = rawRows.map(r => calculateItem(r, activeSeason.end_date, upload.id))
+      const calculatedItems = rawRows.map(r => calculateItem(r, activeSeason.end_date, upload.id, activeSeason.start_date))
 
       // 배치 삽입 (청크 단위)
       const CHUNK = 500

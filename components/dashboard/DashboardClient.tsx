@@ -25,7 +25,7 @@ export default function DashboardClient({ items, prevItems, uploads, activeSeaso
   const [rateRange, setRateRange] = useState<[number, number]>([0, 150])
   const [selectedBrandForItems, setSelectedBrandForItems] = useState<string | null>(null)
 
-  const brands = useMemo(() => [...new Set(items.map(i => i.brand_name))].sort(), [items])
+  const brands = useMemo(() => Array.from(new Set(items.map(i => i.brand_name))).sort(), [items])
 
   const filteredItems = useMemo(() => {
     return items.filter(item => {

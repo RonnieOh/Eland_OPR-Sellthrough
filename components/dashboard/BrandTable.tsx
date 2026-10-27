@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import type { Season, Metric } from '@/lib/types/database'
 import type { BrandSummary } from '@/lib/calculate'
-import { fmtPct, fmtCurrency, fmtNumber, fmt, rateColor, rateBg } from '@/lib/utils'
+import { fmtPct, fmtCurrency, rateColor, rateBg } from '@/lib/utils'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 
 type SortKey = 'brand_name' | 'sales_rate_amount' | 'sales_rate_qty' | 'expected_eod_rate_amount' | 'days_to_clearance_amount' | 'purchase_amount'

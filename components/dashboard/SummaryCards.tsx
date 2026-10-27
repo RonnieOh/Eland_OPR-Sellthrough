@@ -23,7 +23,6 @@ export default function SummaryCards({ items, prevItems, metric, activeSeason }:
 
   // 전체 일평균 속도
   const refDate = items[0]?.reference_date
-  const elapsedDays = refDate ? Math.max(1, differenceInCalendarDays(parseISO(refDate), parseISO('2020-01-01'))) : 1
   const remainingDays = activeSeason?.end_date && refDate
     ? Math.max(0, differenceInCalendarDays(parseISO(activeSeason.end_date), parseISO(refDate)))
     : 0

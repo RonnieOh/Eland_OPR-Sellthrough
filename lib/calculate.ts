@@ -15,12 +15,16 @@ export interface RawRow {
 export function calculateItem(
   raw: RawRow,
   seasonEndDate: string,
-  uploadId: string
+  uploadId: string,
+  seasonStartDate?: string | null,
 ): Omit<Item, 'id' | 'created_at'> {
   const refDate = parseISO(raw.reference_date)
   const endDate = parseISO(seasonEndDate)
+
+  // 시즌 시작일이 있으면 그 기준, 없으면 기준일 기준 56일(8주) 기본값
+  const startDate = seasonStartDate ? parseISO(seasonStartDate) : null
   const elapsedDays = Math.max(
-    differenceInCalendarDays(refDate, parseISO('2020-01-01')),
+    startDate ? differenceInCalendarDays(refDate, startDate) : 56,
     1
   )
   const remainingDays = Math.max(differenceInCalendarDays(endDate, refDate), 0)
@@ -136,12 +140,12 @@ export function aggregateBrands(items: Item[]): BrandSummary[] {
       sales_qty,
       sales_rate_amount: purchase_amount > 0 ? (sales_cost / purchase_amount) * 100 : null,
       sales_rate_qty: hasQty && purchase_qty! > 0 ? (sales_qty! / purchase_qty!) * 100 : null,
-      expected_eod_rate_amount: rows[0]?.expected_eod_rate_amount != null
-        ? purchase_amount > 0
-          ? ((sales_cost + daily_speed_amount * (rows[0].expected_eod_rate_amount > 0 ? 1 : 0)) / purchase_amount) * 100
-          : null
+      expected_eod_rate_amount: purchase_amount > 0
+        ? (rows.reduce((s, r) => s + (r.expected_eod_rate_amount ?? 0) * r.purchase_amount, 0) / purchase_amount)
         : null,
-      expected_eod_rate_qty: null,
+      expected_eod_rate_qty: hasQty && purchase_qty! > 0
+        ? (rows.reduce((s, r) => s + (r.expected_eod_rate_qty ?? 0) * (r.purchase_qty ?? 0), 0) / purchase_qty!)
+        : null,
       days_to_clearance_amount,
       days_to_clearance_qty,
       daily_speed_amount,
